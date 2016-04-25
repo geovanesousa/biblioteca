@@ -1,0 +1,43 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" >
+        <h:form>  
+            <p:growl id="messages"/>
+            <p:menubar>
+                <p:submenu label="Inserir" >
+                    <p:menuitem value="Empréstimo" url="/faces/restrito/emprestimo.xhtml" />
+                    <p:menuitem value="Devolução" url="/faces/restrito/devolucao.xhtml" />
+                    <p:menuitem value="Editora" url="/faces/restrito/inserir_editora.xhtml" />
+                    <p:menuitem value="Renovação" url="/faces/restrito/renovacao.xhtml" />
+                    <p:submenu label="Exemplar" >
+                        <p:menuitem value="CD" url="/faces/restrito/inserir_cd.xhtml" />
+                        <p:menuitem value="Dicionário" 
+                                    url="/faces/restrito/inserir_dicionario.xhtml" />
+                        <p:menuitem value="Livro" 
+                                    url="/faces/restrito/inserir_livro.xhtml" />
+                        <p:menuitem value="Monografia" 
+                                    url="/faces/restrito/inserir_monografia.xhtml" />
+                        <p:menuitem value="Revista" 
+                                    url="/faces/restrito/inserir_revista.xhtml" />
+                    </p:submenu>
+                    <p:submenu label="Reserva" >
+                        <p:menuitem value="CD" url="/faces/restrito/reserva_cd.xhtml" />
+                        <p:menuitem value="Livro" 
+                                    url="/faces/restrito/reserva_livro.xhtml" />
+                        <p:menuitem value="Monografia" 
+                                    url="/faces/restrito/reserva_monografia.xhtml" />
+                    </p:submenu>
+                </p:submenu>
+                <p:submenu label="Consultar" >
+                    <p:menuitem value="Editora" url="/faces/restrito/consultar_editora.xhtml" />
+                    <p:menuitem value="Reservas" url="/faces/restrito/fila_reservas.xhtml" />
+                    <p:menuitem value="Estoque" url="/faces/restrito/estoque.xhtml" />
+                </p:submenu>
+                <p:menuitem value="Sair" action="#{loginBean.registraSaida}" 
+                            icon="ui-icon-close" />
+            </p:menubar>
+        </h:form>
+</ui:composition>    

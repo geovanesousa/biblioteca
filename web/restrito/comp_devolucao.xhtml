@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pm="http://primefaces.org/mobile"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <p:outputLabel value="Recibo de Devolução" />
+        <br/>
+        <br/>
+    </h:head>    
+
+    <h:body>
+        <h:form>
+            <p:outputLabel value="Devolução em: " />
+            <p:outputLabel 
+                value="#{cadastroDevolucaoBean.datah.time}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </p:outputLabel>
+            <br/>
+            <br/>
+            <ui:repeat var="emplivro" 
+                       value="#{cadastroDevolucaoBean.emprLivros}" >
+                        <li><p:outputLabel value="Título: "/>
+                            #{emplivro.exemplarLivro.livro.titulo}
+                            <p:outputLabel value=" | Prev. Devolução: "/>
+                            <p:outputLabel 
+                                value="#{emplivro.previsaoDataDevolucao.time}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </p:outputLabel>
+                            <p:outputLabel value=" | Cód. Empréstimo: "/>
+                            <p:outputLabel 
+                                value="#{emplivro.id}" /></li>
+            </ui:repeat>
+            <ui:repeat var="empcd" 
+                       value="#{cadastroDevolucaoBean.emprCds}" >
+                        <li><p:outputLabel value="Título: "/>
+                            #{empcd.exemplarCd.cd.titulo}
+                            <p:outputLabel value=" | Prev. Devolução: "/>
+                            <p:outputLabel 
+                                value="#{empcd.previsaoDataDevolucao.time}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </p:outputLabel>
+                            <p:outputLabel value=" | Cód. Empréstimo: "/>
+                            <p:outputLabel 
+                                value="#{empcd.id}" /></li>
+            </ui:repeat>
+            <ui:repeat var="empmonog" 
+                       value="#{cadastroDevolucaoBean.emprMonografias}" >
+                        <li><p:outputLabel value="Título: "/>
+                            #{empmonog.exemplarMonografia.monografia.titulo}
+                            <p:outputLabel value=" | Prev. Devolução: "/>
+                            <p:outputLabel 
+                                value="#{empmonog.previsaoDataDevolucao.time}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </p:outputLabel>
+                            <p:outputLabel value=" | Cód. Empréstimo: "/>
+                            <p:outputLabel 
+                                value="#{empmonog.id}" /></li>
+            </ui:repeat>
+            <br/>
+            <br/>
+                <p:outputLabel value="Cod. Usuário: "/>
+                <p:outputLabel value="#{cadastroDevolucaoBean.usuario.id}"/>
+                <br/>
+                <p:outputLabel value="Matrícula: "/>
+                <p:outputLabel value="#{cadastroDevolucaoBean.matricula}"/>
+                <br/>
+                <p:outputLabel value="Máquina: "/>
+                <p:outputLabel value="#{cadastroDevolucaoBean.ip}"/>
+                <br/>
+                <br/>
+                <h:panelGrid columns="2" role="4" >
+                <p:outputLabel value="Imprimir Comprovante: "/>
+                <button type="button" onclick="window.print();"> imprimir</button>
+                <p:outputLabel value="Página Anterior: "/>
+                <h:commandButton value="voltar" style="font-size: small"
+                                 action="#{cadastroDevolucaoBean.limpar}" />
+                </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>

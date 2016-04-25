@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <p:outputLabel value="Página de Login" style="font-size: large" />
+        <br/>
+        <br/>
+    </h:head>    
+
+    <h:body>
+        <h:form >
+            <p:tabView>
+                <p:tab title="Login">
+                    <p:outputLabel 
+                        value="Preencha o formulário abaixo, com
+                        as informações de Login" />
+                    <br/>
+                    <h:panelGrid columns="2" role="5" > 
+                        <p:outputLabel for="login" value="Login:" />
+                        <p:inputText id="login" required="true"
+                                     value="#{loginBean.login}" />
+
+                        <h:outputLabel for="senha" value="Senha: *" />
+                        <p:password id="senha" 
+                                    value="#{loginBean.senha}" 
+                                    label="Senha" 
+                                    required="true" />
+                        <p:commandButton value="Entrar" 
+                                         style="font-size: small"
+                                         icon="ui-icon-arrow-u" ajax="false" 
+                                         action="#{loginBean.autentica}"/>
+                        <p:messages id="messages"  
+                                    autoUpdate="true" >
+                        </p:messages>                    
+                    </h:panelGrid>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+    </h:body>
+</html>

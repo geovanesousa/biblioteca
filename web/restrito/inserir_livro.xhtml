@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pm="http://primefaces.org/mobile"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <div>
+            <ui:include src="/templates/menuatecoo.xhtml"/>
+        </div>
+        <br/>
+        <p:outputLabel value="Inserir Livro" style="font-size: large" />
+    </h:head>    
+
+    <h:body>
+        <h:form >
+            <p:tabView>
+                <p:tab title="Livro">
+                    <p:outputLabel 
+                        value="Preencha o formulário abaixo, com
+                        as informações do Livro" />
+                    <br/>
+                    <h:panelGrid columns="4" role="5" > 
+                        <p:outputLabel for="cod" value="Cód. Gerado" />
+                        <p:inputText id="cod" readonly="true"
+                                     value="#{cadastroLivroBean.livro.id}" />
+
+
+                        <p:outputLabel for="qtdpaginas" value="Qtd. Páginas:" />
+                        <p:inputText id="qtdpaginas" required="true"
+                                     value="#{cadastroLivroBean.livro.quantidaDePaginas}" />
+
+                        <p:outputLabel for="editora" value="Nome Editora:" />
+                        <p:autoComplete id="editora" minQueryLength="3" maxResults="5" 
+                                        value="#{cadastroLivroBean.livro.editora.nome}" 
+                                        completeMethod="#{cadastroEditoraBean.listaEditoras}" 
+                                        effect="blind" required="true" />
+
+                        <p:outputLabel for="titulo" value="Título:" />
+                        <p:inputText id="titulo"
+                                     value="#{cadastroLivroBean.livro.titulo}" 
+                                     required="true" />
+
+                        <p:outputLabel for="ano" value="Ano do Livro:" />
+                        <p:inputMask id="ano" mask="9999" required="true"
+                                     value="#{cadastroLivroBean.livro.ano}" />
+
+                        <p:outputLabel for="descricao" value="Descrição:" />
+                        <p:inputText id="descricao" 
+                                     value="#{cadastroLivroBean.livro.descricao}"
+                                     required="true" maxlength="100" />
+
+
+                        <p:outputLabel for="isbn" value="ISBN:" />
+                        <p:inputMask id="isbn" mask="9999999999" required="true"
+                                     value="#{cadastroLivroBean.livro.isbn}" />
+
+                        <p:outputLabel for="braille" value="Braille:" />
+                        <p:selectOneMenu id="braille" value="#{cadastroLivroBean.livro.braille}" style="width:125px">
+                            <f:selectItem itemLabel="Não" itemValue="false" />
+                            <f:selectItem itemLabel="Sim" itemValue="true" />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel for="classificacao" value="Classificação:" />
+                        <p:inputText id="classificacao" required="true"
+                                     value="#{cadastroLivroBean.livro.classificacao}" />
+
+
+                        <p:outputLabel for="edicao" value="Edição:" />
+                        <p:inputText id="edicao" required="true"
+                                     value="#{cadastroLivroBean.livro.edicao}" />
+
+
+                    </h:panelGrid>
+                </p:tab>
+
+                
+                <p:tab title="Estoque">
+                    <h:panelGrid columns="2" role="7" >
+                        <p:outputLabel for="qtdlivros" value="Qtd. Livros:" />
+                        <p:inputText id="qtdlivros" required="true"
+                                     value="#{cadastroLivroBean.exemplarLivro.quantidadeEstoque}" />
+                        <p:outputLabel for="locallivro" value="Localização:" />
+                        <p:inputText id="locallivro" required="true"
+                                     value="#{cadastroLivroBean.livro.localLivro}" />
+                        <p:outputLabel for="bloqueado" value="Bloqueado:" />
+                        <p:selectOneMenu id="bloqueado" 
+                                         value="#{cadastroLivroBean.livro.bloqueado}" 
+                                         style="width:125px">
+                            <f:selectItem itemLabel="Não" itemValue="false" />
+                            <f:selectItem itemLabel="Sim" itemValue="true" />
+                        </p:selectOneMenu>
+                        
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="Autor">
+                    <h:panelGrid columns="2" role="7" >
+                        <p:outputLabel for="nome" value="Nome:" />
+                        <p:inputText id="nome" 
+                                     value="#{cadastroLivroBean.autor.nome}" />
+                        <p:outputLabel for="cutter" value="Cutter:" />
+                        <p:inputText id="cutter" 
+                                     value="#{cadastroLivroBean.autor.cutter}" />
+                        <p:outputLabel value="Adicionar autor:" />
+                        <p:commandButton value="+"
+                                         style="font-size: small"
+                                         ajax="false" 
+                                         action="#{cadastroLivroBean.
+                                                   adicionaAutorNaLista}"/>
+                        <p:outputLabel value="Concluir cadastro:" />
+                        <p:commandButton value="Enviar" 
+                                         style="font-size: small"
+                                         icon="ui-icon-arrow-u" ajax="false" 
+                                         action="#{cadastroLivroBean.inserirLivro}"/>
+                    </h:panelGrid>
+                    <ol>
+                        <ui:repeat var="autor" value="#{cadastroLivroBean.autores}">
+                            <li><p:outputLabel value="Autor: "/>#{autor.nome}
+                                <p:outputLabel value="| Cutter: "/>#{autor.cutter}</li>
+                        </ui:repeat>
+                    </ol>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+    </h:body>
+</html>

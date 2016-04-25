@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pm="http://primefaces.org/mobile"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <div>
+            <ui:include src="/templates/menuatecoo.xhtml"/>
+        </div>
+        <br/>
+        <p:outputLabel value="Consultar Estoque" style="font-size: large" />
+        <br/>
+    </h:head>    
+
+    <h:body>
+        <h:form>
+            <br/>
+        </h:form>
+        <br/>
+        <p:tabView >
+            <p:tab title="Livro">
+                <h:form >
+                    <h:panelGrid columns="2" role="5" >
+                        <p:outputLabel for="titulolivro" 
+                                       value="Título do Livro:" />
+                        <p:autoComplete id="titulolivro" minQueryLength="3" 
+                                        maxResults="5" 
+                                        value="#{estoqueBean.
+                                                 tituloLivro}" 
+                                        completeMethod="#{estoqueBean.
+                                                          listaLivros}" 
+                                        effect="blind" >
+                            <f:ajax event="blur" render="titulolivro codlivro" 
+                      listener="#{estoqueBean.codigoLivroPorNome}" />
+                        </p:autoComplete>
+                        <p:outputLabel value="OU" />
+                        <p:outputLabel value="" />
+                        <p:outputLabel for="codlivro" value="Código:" />
+                        <p:inputText id="codlivro" 
+                                     value="#{estoqueBean.
+                                              codigoLivro}" >
+                            <f:ajax event="blur" render="titulolivro codlivro elivro" 
+                      listener="#{estoqueBean.
+                                  nomeLivroPorCodigo}" />
+                        </p:inputText>
+                        <p:outputLabel for="elivro" value="Qtd. Estoque:" />
+                        <p:inputText readonly="true" id="elivro" 
+                                     value="#{estoqueBean.estoqueLivro}" />
+                        <p:commandButton value="Consultar" ajax="false"
+                                         action="#{estoqueBean.estoqLivro}" />
+                        </h:panelGrid>
+                </h:form>
+                  </p:tab>
+            <p:tab title="CD">
+                <h:form >
+                    <h:panelGrid columns="2" role="4" >
+                        <p:outputLabel for="titulocd" value="Título do CD:" />
+                 <p:autoComplete id="titulocd" minQueryLength="3" maxResults="5" 
+                                      value="#{estoqueBean.tituloCd}" 
+                             completeMethod="#{estoqueBean.listaCds}" 
+                             effect="blind" >
+                 <f:ajax event="blur" render="titulocd codcd" 
+                      listener="#{estoqueBean.codigoCdPorNome}" />
+                 </p:autoComplete>
+                        <p:outputLabel value="OU" />
+                        <p:outputLabel value="" />
+                        <p:outputLabel for="codcd" value="Código:" />
+                        <p:inputText id="codcd" 
+                                   value="#{estoqueBean.codigoCd}" >
+                            <f:ajax event="blur" render="titulocd codcd" 
+                      listener="#{estoqueBean.nomeCdPorCodigo}" />
+                        </p:inputText>
+                        <p:outputLabel for="ecd" value="Qtd. Estoque:" />
+                        <p:inputText readonly="true" id="ecd" 
+                                     value="#{estoqueBean.estoqueCd}" />
+                        <p:commandButton ajax="false" value="Consultar" 
+                                         action="#{estoqueBean.estoqCd}" />
+                    </h:panelGrid>
+                </h:form>
+            </p:tab>
+            <p:tab title="Monografia">
+                <h:form >
+                    <h:panelGrid columns="2" role="4" >
+                        <p:outputLabel for="titulomonog" value="Título:" />
+              <p:autoComplete id="titulomonog" minQueryLength="3" maxResults="5" 
+                              value="#{estoqueBean.tituloMonog}" 
+                          completeMethod="#{estoqueBean.listaMonog}" 
+                                        effect="blind" >
+                  <f:ajax event="blur" render="titulomonog codmonog" 
+                      listener="#{estoqueBean.codigoMonogPorNome}" />
+              </p:autoComplete>
+                        <p:outputLabel value="OU" />
+                        <p:outputLabel value="" />
+                        <p:outputLabel for="codmonog" value="Código:" />
+                        <p:inputText id="codmonog" 
+                                value="#{estoqueBean.codigoMonog}" >
+                            <f:ajax event="blur" render="titulomonog codmonog" 
+                      listener="#{estoqueBean.nomeMonogPorCodigo}" />
+                        </p:inputText>
+                        <p:outputLabel for="emonog" value="Qtd. Estoque:" />
+                        <p:inputText readonly="true" id="emonog" 
+                                     value="#{estoqueBean.estoqueMonog}" />
+                        <p:commandButton ajax="false" value="Consultar" 
+                                             action="#{estoqueBean.estoqMonog}" />
+                    </h:panelGrid>
+                </h:form>
+            </p:tab>
+        </p:tabView>
+        <p:messages id="messages"  autoUpdate="true" >
+            </p:messages>
+        <br/>
+        </h:body>
+</html>

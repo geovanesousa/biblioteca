@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pm="http://primefaces.org/mobile"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <div>
+            <ui:include src="/templates/menuatecoo.xhtml"/>
+        </div>
+        <br/>
+        <p:outputLabel value="Fila de Reservas" style="font-size: large" />
+        <br/>
+    </h:head>    
+
+    <h:body>
+        <br/>
+        <p:tabView >
+            <p:tab title="Livro">
+                <h:form >
+                    <p:outputLabel value="Para visualizar a fila de reserva, 
+                                   digite o CÓDIGO ou TÍTULO do Livro: " />
+                    <br/>
+                    <h:panelGrid columns="2" role="5" >
+                        <p:outputLabel for="titulolivro" 
+                                       value="Título do Livro:" />
+                        <p:autoComplete id="titulolivro" minQueryLength="3" 
+                                        maxResults="5" 
+                                        value="#{filaReservaBean.
+                                                 tituloLivro}" 
+                                        completeMethod="#{cadastroEmprestimoBean.
+                                                          listaLivros}" 
+                                                          effect="blind" >
+                        <f:ajax event="blur" render="titulolivro codlivro" 
+                                listener="#{filaReservaBean.
+                                            codigoLivroPorNome}" />
+                        </p:autoComplete>
+                        <p:outputLabel value="OU" />
+                        <p:outputLabel value="" />
+                        <p:outputLabel for="codlivro" value="Código:" />
+                        <p:inputText id="codlivro" 
+                                     value="#{filaReservaBean.
+                                              codLivro}" >
+                        <f:ajax event="blur" render="titulolivro codlivro" 
+                                listener="#{filaReservaBean.
+                                                   nomeLivroPorCodigo}" />
+                        </p:inputText>
+                        <p:outputLabel   value="Visualizar fila: " />
+                        <p:commandButton value="+"
+                                         style="font-size: small" ajax="false"
+                                         action="#{filaReservaBean.
+                                                   listaReservaLivro}" />
+                        </h:panelGrid>
+                        <br/>
+                        <p:outputLabel value="Para retirar o Livro reservado, 
+                                       dígite o código da reserva: " />
+                        <br/>
+                        <h:panelGrid columns="2" role="5" >
+                        <p:outputLabel for="codretlivro" value="Cód. Reserva:" />
+                        <p:inputText id="codretlivro" 
+                                     value="#{cadastroRetiradaBean.
+                                              codRetLivro}" />
+                        <p:commandButton value="Retirar Livro"
+                                         style="font-size: small" ajax="false"
+                                         action="#{cadastroRetiradaBean.
+                                                   retiradaLivro}" />
+                        </h:panelGrid>
+                </h:form>
+                <ol >
+                    <ui:repeat var="livro" 
+                               value="#{filaReservaBean.reservasLivro}" >
+                        <li><p:outputLabel value="Solicitante: "/>
+                            #{livro.solicitante.pessoa.nome}
+                            <p:outputLabel value=" | Reservado em: "/>
+                            <p:outputLabel 
+                                value="#{livro.dataDaReserva.time}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </p:outputLabel>
+                            <p:outputLabel value=" | Limite para retirada: "/>
+                            <p:outputLabel 
+                                value="#{livro.dataLimite.time}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </p:outputLabel>
+                            <p:outputLabel value=" | Cód. Reserva: "/>
+                            #{livro.id}</li>
+                    </ui:repeat>
+                </ol> 
+            </p:tab>
+            <p:tab title="CD">
+                <h:form >
+                    <p:outputLabel value="Para visualizar a fila de reserva, 
+                                   digite o CÓDIGO ou TÍTULO do CD: " />
+                    <br/>
+                    <h:panelGrid columns="2" role="5" >
+                        <p:outputLabel for="titulocd" value="Título do CD:" />
+                 <p:autoComplete id="titulocd" minQueryLength="3" maxResults="5" 
+                                      value="#{filaReservaBean.tituloCd}" 
+                             completeMethod="#{cadastroEmprestimoBean.listaCds}" 
+                             effect="blind" >
+                 <f:ajax event="blur" render="titulocd codcd" 
+                                listener="#{filaReservaBean.
+                                            codigoCdPorNome}" />
+                 </p:autoComplete>
+                        <p:outputLabel value="OU" />
+                        <p:outputLabel value="" />
+                        <p:outputLabel for="codcd" value="Código:" />
+                        <p:inputText id="codcd" 
+                                     value="#{filaReservaBean.
+                                              codCd}" >
+                        <f:ajax event="blur" render="titulocd codcd" 
+                                listener="#{filaReservaBean.
+                                            nomeCdPorCodigo}" />
+                        </p:inputText>
+                        <p:outputLabel   value="Visualizar fila: " />
+                        <p:commandButton value="+"
+                                         style="font-size: small"
+                                         ajax="false" 
+                                   action="#{filaReservaBean.listaReservaCd}" />
+                        </h:panelGrid>
+                        <br/>
+                        <p:outputLabel value="Para retirar o CD reservado, 
+                                       dígite o código da reserva: " />
+                        <br/>
+                        <h:panelGrid columns="2" role="5" >
+                            <p:outputLabel for="codretcd" value="Cód. Reserva:" />
+                        <p:inputText id="codretcd" 
+                                     value="#{cadastroRetiradaBean.
+                                              codRetCd}" />
+                        <p:commandButton value="Retirar CD"
+                                         style="font-size: small" ajax="false"
+                                         action="#{cadastroRetiradaBean.
+                                                   retiradaCd}" />
+                    </h:panelGrid>
+                </h:form>
+                <ol >
+                    <ui:repeat var="cd" 
+                               value="#{filaReservaBean.reservasCd}" >
+                        <li><p:outputLabel value="Solicitante: "/>
+                            #{cd.solicitante.pessoa.nome}
+                            <p:outputLabel value=" | Reservado em: "/>
+                            <p:outputLabel 
+                                value="#{cd.dataDaReserva.time}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </p:outputLabel>
+                            <p:outputLabel value=" | Limite para retirada: "/>
+                            <p:outputLabel 
+                                value="#{cd.dataLimite.time}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </p:outputLabel>
+                            <p:outputLabel value="Cód. Reserva: "/>
+                            #{cd.id}</li>
+                    </ui:repeat>
+                </ol> 
+            </p:tab>
+            <p:tab title="Monografia">
+                <h:form >
+                    <p:outputLabel value="Para visualizar a fila de reserva, 
+                                   digite o CÓDIGO ou TÍTULO da Monografia: " />
+                    <br/>
+                    <h:panelGrid columns="2" role="5" >
+                        <p:outputLabel for="titulomonog" value="Título da Monografia:"/>
+                 <p:autoComplete id="titulomonog" minQueryLength="3" maxResults="5" 
+                                      value="#{filaReservaBean.tituloMonog}" 
+                                      completeMethod="#{cadastroEmprestimoBean.
+                                                        listaMonog}" 
+                             effect="blind" >
+                 <f:ajax event="blur" render="titulomonog codmonog" 
+                                listener="#{filaReservaBean.
+                                            codigoMonogPorNome}" />
+                 </p:autoComplete>
+                        <p:outputLabel value="OU" />
+                        <p:outputLabel value="" />
+                        <p:outputLabel for="codmonog" value="Código:" />
+                        <p:inputText id="codmonog" 
+                                     value="#{filaReservaBean.
+                                              codMonog}" >
+                        <f:ajax event="blur" render="titulomonog codmonog" 
+                                listener="#{filaReservaBean.
+                                            nomeMonogPorCodigo}" />
+                        </p:inputText>
+                        <p:outputLabel   value="Visualizar fila: " />
+                        <p:commandButton value="+"
+                                         style="font-size: small"
+                                         ajax="false" 
+                                   action="#{filaReservaBean.listaReservaMonog}" />
+                    </h:panelGrid>
+                        <br/>
+                        <p:outputLabel value="Para retirar a Monografia reservado, 
+                                       dígite o código da reserva: " />
+                        <br/>
+                        <h:panelGrid columns="2" role="5" >
+                            <p:outputLabel for="codretmonog" value="Cód. Reserva:" />
+                        <p:inputText id="codretmonog" 
+                                     value="#{cadastroRetiradaBean.
+                                              codRetMonog}" />
+                        <p:commandButton value="Retirar Monografia"
+                                         style="font-size: small" ajax="false"
+                                         action="#{cadastroRetiradaBean.
+                                                   retiradaMonog}" />
+                    </h:panelGrid>
+                </h:form>
+                <ol >
+                    <ui:repeat var="monog" 
+                               value="#{filaReservaBean.reservasMonog}" >
+                        <li><p:outputLabel value="Solicitante: "/>
+                            #{monog.solicitante.pessoa.nome}
+                            <p:outputLabel value=" | Reservado em: "/>
+                            <p:outputLabel 
+                                value="#{monog.dataDaReserva.time}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </p:outputLabel>
+                            <p:outputLabel value=" | Limite para retirada: "/>
+                            <p:outputLabel 
+                                value="#{monog.dataLimite.time}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </p:outputLabel>
+                            <p:outputLabel value="Cód. Reserva: "/>
+                            #{monog.id}</li>
+                    </ui:repeat>
+                </ol> 
+            </p:tab>
+        </p:tabView>
+        <p:messages id="messages"  autoUpdate="true" >
+            </p:messages>
+    </h:body>
+</html>

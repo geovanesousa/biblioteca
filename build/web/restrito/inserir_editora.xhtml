@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pm="http://primefaces.org/mobile"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <div>
+            <ui:include src="/templates/menuatecoo.xhtml"/>
+        </div>
+        <br/>
+        <p:outputLabel value="Inserir Editora" style="font-size: large" />
+        <br/>
+        <br/>
+    </h:head>    
+
+    <h:body>
+        <h:form >
+            <p:tabView>
+                <p:tab title="Dados">
+                    <p:outputLabel 
+                        value="Preencha o formulário abaixo, com
+                        as informações da Editora" />
+                    <br/>
+                    <h:panelGrid columns="2" role="5" >
+                    <p:outputLabel for="cnpj" value="CNPJ:" />
+                    <p:inputMask id="cnpj"
+                                 value="#{cadastroEditoraBean.editora.cnpj}" 
+                                 required="true" mask="99.999.999/9999-99" />
+                    <p:outputLabel for="nome" value="Nome:" />
+                    <p:inputText id="nome" 
+                                 value="#{cadastroEditoraBean.editora.nome}"
+                                 required="true"  />
+                    <p:outputLabel for="email" value="Email:" />
+                    <p:inputText id="email" 
+                                 value="#{cadastroEditoraBean.editora.email}" />
+                    <p:outputLabel for="telefone" value="Telefone:" />
+                    <p:inputMask id="telefone" mask="(99)9999-9999"
+                                 value="#{cadastroEditoraBean.editora.telefone}" />
+                    </h:panelGrid>
+                </p:tab>
+
+                <p:tab title="Endereço">
+                    <h:panelGrid columns="2" role="7" >
+                    <p:outputLabel for="cep" value="CEP:" />
+                    <p:inputMask id="cep" 
+                                 value="#{cadastroEditoraBean.editora.endereco.cep}"
+                                 required="true" mask="99.999-999" />
+                    <p:outputLabel for="logradouro" value="Logradouro:" />
+                    <p:inputText id="logradouro" 
+                                 value="#{cadastroEditoraBean.editora.endereco.logradouro}"
+                                 required="true" />
+                    <p:outputLabel for="numero" value="Numero:" />
+                    <p:inputText id="numero" 
+                                 value="#{cadastroEditoraBean.editora.endereco.numero}"
+                                 required="true" />
+                    <p:outputLabel for="complemento" value="Complemento:" />
+                    <p:inputText id="complemento" 
+                                 value="#{cadastroEditoraBean.editora.endereco.complemento}"
+                                 />
+                    <p:outputLabel for="bairro" value="Bairro:" />
+                    <p:inputText id="bairro" 
+                                 value="#{cadastroEditoraBean.editora.endereco.bairro}"
+                                 required="true" />
+                    <p:outputLabel for="cidade" value="Cidade:" />
+                    <p:inputText id="cidade" 
+                                 value="#{cadastroEditoraBean.editora.endereco.cidade}"
+                                 required="true" />
+                    <p:outputLabel for="uf" value="UF:" />
+                    <p:inputMask id="uf" 
+                                 value="#{cadastroEditoraBean.editora.endereco.uf}" 
+                                 required="true" mask="aa" />
+                    <p:commandButton value="Enviar"
+                                     style="font-size: small"
+                                     icon="ui-icon-arrow-u" ajax="false" 
+                                     action="#{cadastroEditoraBean.
+                                               inserirEditora()}"/>
+                    </h:panelGrid>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+    </h:body>
+</html>

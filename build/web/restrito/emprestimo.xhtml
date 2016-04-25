@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pm="http://primefaces.org/mobile"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <div>
+            <ui:include src="/templates/menuatecoo.xhtml"/>
+        </div>
+        <br/>
+        <p:outputLabel value="Cadastrar Empréstimo" style="font-size: large" />
+        <br/>
+    </h:head>    
+
+    <h:body>
+        <h:form>
+            <br/>
+        </h:form>
+        <br/>
+        <p:tabView >
+            <p:tab title="Solicitante" >
+                <h:form>
+                    <h:panelGrid columns="2" role="4" >
+                        <p:outputLabel for="nomesolic" 
+                                       value="Nome do Solicitante:" />
+                        <p:autoComplete id="nomesolic" 
+                                        minQueryLength="3" maxResults="5" 
+                                        value="#{cadastroEmprestimoBean.
+                                                 nomeSolicitante}" 
+                                        completeMethod="#{cadastroEmprestimoBean.
+                                                          listaSolicitantes}" 
+                                        effect="blind" >
+                            <f:ajax event="blur" render="nomesolic matricula" 
+                      listener="#{cadastroEmprestimoBean.
+                                  defineSolicitantePorNome}" />
+                        </p:autoComplete>
+                        <p:outputLabel value="OU" />
+                        <p:outputLabel value="" />
+                        <p:outputLabel for="matricula" value="Matricula:" />
+                        <p:inputText id="matricula" 
+                                     value="#{cadastroEmprestimoBean.matricula}" >
+                            <f:ajax event="blur" render="nomesolic matricula" 
+                      listener="#{cadastroEmprestimoBean.
+                                                   defineSolicitantePorMatricula}" />
+                        </p:inputText>
+                    </h:panelGrid>
+                </h:form>
+            </p:tab>
+            <p:tab title="Livro">
+                <h:form >
+                    <h:panelGrid columns="2" role="5" >
+                        <p:outputLabel for="titulolivro" 
+                                       value="Título do Livro:" />
+                        <p:autoComplete id="titulolivro" minQueryLength="3" 
+                                        maxResults="5" 
+                                        value="#{cadastroEmprestimoBean.
+                                                 tituloLivro}" 
+                                        completeMethod="#{cadastroEmprestimoBean.
+                                                          listaLivros}" 
+                                        effect="blind" >
+                            <f:ajax event="blur" render="titulolivro codlivro" 
+                      listener="#{cadastroEmprestimoBean.
+                                                   codigoLivroPorNome}" />
+                        </p:autoComplete>
+                        <p:outputLabel value="OU" />
+                        <p:outputLabel value="" />
+                        <p:outputLabel for="codlivro" value="Código:" />
+                        <p:inputText id="codlivro" 
+                                     value="#{cadastroEmprestimoBean.
+                                              codigoLivro}" >
+                            <f:ajax event="blur" render="titulolivro codlivro" 
+                      listener="#{cadastroEmprestimoBean.
+                                  nomeLivroPorCodigo}" />
+                        </p:inputText>
+                        <p:outputLabel   value="Adicionar livro:" />
+                        <p:commandButton value="+"
+                                         style="font-size: small"
+                                         ajax="false" 
+                                         action="#{cadastroEmprestimoBean.
+                                                   adicionaLivroNaLista}" />
+                    </h:panelGrid>
+                </h:form>
+                <ol>
+                    <ui:repeat var="livro" value="#{cadastroEmprestimoBean.
+                                                    livros}">
+                        <li><p:outputLabel value="Cód: "/>#{livro.id}
+                            <p:outputLabel value="| Título: "/>#{livro.titulo}
+                            <p:outputLabel value="| ISBN: "/>#{livro.isbn} </li>
+                    </ui:repeat>
+                </ol>
+            </p:tab>
+            <p:tab title="CD">
+                <h:form >
+                    <h:panelGrid columns="2" role="4" >
+                        <p:outputLabel for="titulocd" value="Título do CD:" />
+                 <p:autoComplete id="titulocd" minQueryLength="3" maxResults="5" 
+                                      value="#{cadastroEmprestimoBean.tituloCd}" 
+                             completeMethod="#{cadastroEmprestimoBean.listaCds}" 
+                             effect="blind" >
+                 <f:ajax event="blur" render="titulocd codcd" 
+                      listener="#{cadastroEmprestimoBean.codigoCdPorNome}" />
+                 </p:autoComplete>
+                        <p:outputLabel value="OU" />
+                        <p:outputLabel value="" />
+                        <p:outputLabel for="codcd" value="Código:" />
+                        <p:inputText id="codcd" 
+                                   value="#{cadastroEmprestimoBean.codigoCd}" >
+                            <f:ajax event="blur" render="titulocd codcd" 
+                      listener="#{cadastroEmprestimoBean.nomeCdPorCodigo}" />
+                        </p:inputText>
+                        <p:outputLabel   value="Adicionar CD:" />
+                        <p:commandButton value="+"
+                                         style="font-size: small"
+                                         ajax="false" 
+                         action="#{cadastroEmprestimoBean.adicionaCdNaLista}" />
+                    </h:panelGrid>
+                </h:form>
+                <ol>
+                    <ui:repeat var="cd" value="#{cadastroEmprestimoBean.cds}">
+                        <li><p:outputLabel value="Cód: "/>#{cd.id}
+                            <p:outputLabel value="| Título: "/>#{cd.titulo}
+                 <p:outputLabel value="| Cód Barras: "/>#{cd.codigoBarras} </li>
+                    </ui:repeat>
+                </ol>
+            </p:tab>
+            <p:tab title="Monografia">
+                <h:form >
+                    <h:panelGrid columns="2" role="4" >
+                        <p:outputLabel for="titulomonog" value="Título:" />
+              <p:autoComplete id="titulomonog" minQueryLength="3" maxResults="5" 
+                              value="#{cadastroEmprestimoBean.tituloMonog}" 
+                          completeMethod="#{cadastroEmprestimoBean.listaMonog}" 
+                                        effect="blind" >
+                  <f:ajax event="blur" render="titulomonog codmonog" 
+                      listener="#{cadastroEmprestimoBean.codigoMonogPorNome}" />
+              </p:autoComplete>
+                        <p:outputLabel value="OU" />
+                        <p:outputLabel value="" />
+                        <p:outputLabel for="codmonog" value="Código:" />
+                        <p:inputText id="codmonog" 
+                                value="#{cadastroEmprestimoBean.codigoMonog}" >
+                            <f:ajax event="blur" render="titulomonog codmonog" 
+                      listener="#{cadastroEmprestimoBean.nomeMonogPorCodigo}" />
+                        </p:inputText>
+                        <p:outputLabel   value="Adicionar Monografia:" />
+                        <p:commandButton value="+"
+                                         style="font-size: small"
+                                         ajax="false" 
+                 action="#{cadastroEmprestimoBean.adicionaMonografiaNaLista}" />
+                    </h:panelGrid>
+                </h:form>
+                <ol>
+           <ui:repeat var="monog" value="#{cadastroEmprestimoBean.monografias}">
+                        <li><p:outputLabel value="Cód: "/>#{monog.id}
+                            <p:outputLabel value="| Título: "/>#{monog.titulo}
+          <p:outputLabel value="| Classificação: "/>#{monog.classificacao} </li>
+                    </ui:repeat>
+                </ol>
+            </p:tab>
+        </p:tabView>
+        <br/>
+        <h:form>
+        <h:panelGrid columns="2" role="4" >
+            <p:outputLabel value="Concluir Empréstimo: " />
+            <p:commandButton value="Enviar" 
+                         style="font-size: small"
+                         icon="ui-icon-arrow-u" ajax="false" 
+                         action="#{cadastroEmprestimoBean.inserirEmprestimo}"/>
+            <p:outputLabel value="Limpar Campos: " />
+            <p:commandButton value="-" 
+                             style="font-size: small" ajax="false"
+                         action="#{cadastroEmprestimoBean.limpar}"/>
+        </h:panelGrid>
+            <p:messages id="messages"  autoUpdate="true" >
+            </p:messages>                    
+        </h:form>
+    </h:body>
+</html>

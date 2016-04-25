@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pm="http://primefaces.org/mobile"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <div>
+            <ui:include src="/templates/menuatecoo.xhtml"/>
+        </div>
+        <br/>
+        <p:outputLabel value="Inserir Monografia" style="font-size: large" />
+    </h:head>    
+
+    <h:body>
+        <h:form >
+            <p:tabView>
+                <p:tab title="Monografia">
+                    <p:outputLabel 
+                        value="Preencha o formulário abaixo, com
+                        as informações da Monografia" />
+                    <br/>
+                    <h:panelGrid columns="4" role="5" > 
+                        <p:outputLabel for="cod" value="Cód. Gerado" />
+                        <p:inputText id="cod" readonly="true"
+                              value="#{cadastroMonografiaBean.monografia.id}" />
+
+
+                        <p:outputLabel for="qtdpaginas" value="Qtd. Páginas:" />
+                        <p:inputText id="qtdpaginas" required="true"
+               value="#{cadastroMonografiaBean.monografia.quantidaDePaginas}" />
+
+                        <p:outputLabel for="titulo" value="Título:" />
+                        <p:inputText id="titulo"
+                             value="#{cadastroMonografiaBean.monografia.titulo}" 
+                                     required="true" />
+
+                        <p:outputLabel for="ano" value="Ano da Monografia:" />
+                        <p:inputMask id="ano" mask="9999" required="true"
+                             value="#{cadastroMonografiaBean.monografia.ano}" />
+
+                        <p:outputLabel for="descricao" value="Descrição:" />
+                        <p:inputText id="descricao" 
+                          value="#{cadastroMonografiaBean.monografia.descricao}"
+                          required="true" maxlength="100" />
+
+                    <p:outputLabel for="classificacao" value="Classificação:" />
+                        <p:inputText id="classificacao" required="true"
+                   value="#{cadastroMonografiaBean.monografia.classificacao}" />
+
+                    </h:panelGrid>
+                </p:tab>
+
+                
+                <p:tab title="Estoque">
+                    <h:panelGrid columns="2" role="7" >
+                 <p:outputLabel for="qtdmonografia" value="Qtd. Monogtafias:" />
+                        <p:inputText id="qtdmonografia" required="true"
+       value="#{cadastroMonografiaBean.exemplarMonografia.quantidadeEstoque}" />
+                        <p:outputLabel for="localmonografia" 
+                                       value="Localização:" />
+                        <p:inputText id="localmonografia" required="true"
+                 value="#{cadastroMonografiaBean.monografia.localMonografia}" />
+                        <p:outputLabel for="bloqueado" value="Bloqueado:" />
+                        <p:selectOneMenu id="bloqueado" 
+                           value="#{cadastroMonografiaBean.monografia.bloqueado}" 
+                                         style="width:125px">
+                            <f:selectItem itemLabel="Não" itemValue="false" />
+                            <f:selectItem itemLabel="Sim" itemValue="true" />
+                        </p:selectOneMenu>
+                        
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="Autor">
+                    <h:panelGrid columns="2" role="7" >
+                        <p:outputLabel for="nome" value="Nome:" />
+                        <p:inputText id="nome" 
+                                 value="#{cadastroMonografiaBean.autor.nome}" />
+                        <p:outputLabel for="cutter" value="Cutter:" />
+                        <p:inputText id="cutter" 
+                                     value="#{cadastroMonografiaBean.autor.cutter}" />
+                        <p:outputLabel value="Adicionar autor:" />
+                        <p:commandButton value="+"
+                                         style="font-size: small"
+                                         ajax="false" 
+                                         action="#{cadastroMonografiaBean.
+                                                   adicionaAutorNaLista}"/>
+                        <p:outputLabel value="Concluir cadastro:" />
+                        <p:commandButton value="Enviar" 
+                                         style="font-size: small"
+                                         icon="ui-icon-arrow-u" ajax="false" 
+                          action="#{cadastroMonografiaBean.inserirMonografia}"/>
+                    </h:panelGrid>
+                    <ol>
+               <ui:repeat var="autor" value="#{cadastroMonografiaBean.autores}">
+                            <li><p:outputLabel value="Autor: "/>#{autor.nome}
+                         <p:outputLabel value="| Cutter: "/>#{autor.cutter}</li>
+                        </ui:repeat>
+                    </ol>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+    </h:body>
+</html>

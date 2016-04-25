@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence  http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="br.com.fatene.bibliotecaPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <class>br.com.fatene.biblioteca.model.Autor</class> 
+    <class>br.com.fatene.biblioteca.model.AutorCd</class>
+    <class>br.com.fatene.biblioteca.model.AutorDicionario</class>
+    <class>br.com.fatene.biblioteca.model.AutorLivro</class>
+    <class>br.com.fatene.biblioteca.model.AutorMonografia</class>
+    <class>br.com.fatene.biblioteca.model.Categoria</class>
+    <class>br.com.fatene.biblioteca.model.Cd</class>
+    <class>br.com.fatene.biblioteca.model.Dicionario</class>
+    <class>br.com.fatene.biblioteca.model.Editora</class>
+    <class>br.com.fatene.biblioteca.model.Emprestimo</class>
+    <class>br.com.fatene.biblioteca.model.EmprestimoCd</class>
+    <class>br.com.fatene.biblioteca.model.EmprestimoLivro</class>
+    <class>br.com.fatene.biblioteca.model.EmprestimoMonografia</class>
+    <class>br.com.fatene.biblioteca.model.Endereco</class>
+    <class>br.com.fatene.biblioteca.model.ExemplarCd</class>
+    <class>br.com.fatene.biblioteca.model.ExemplarDicionario</class>
+    <class>br.com.fatene.biblioteca.model.ExemplarLivro</class>
+    <class>br.com.fatene.biblioteca.model.ExemplarMonografia</class>
+    <class>br.com.fatene.biblioteca.model.ExemplarRevista</class>
+    <class>br.com.fatene.biblioteca.model.Livro</class>
+    <class>br.com.fatene.biblioteca.model.LogAcesso</class>
+    <class>br.com.fatene.biblioteca.model.Monografia</class>
+    <class>br.com.fatene.biblioteca.model.Pessoa</class>
+    <class>br.com.fatene.biblioteca.model.PrazoMulta</class>
+    <class>br.com.fatene.biblioteca.model.Revista</class>
+    <class>br.com.fatene.biblioteca.model.Solicitante</class>
+    <class>br.com.fatene.biblioteca.model.Usuario</class>
+    <class>br.com.fatene.biblioteca.model.ReservaLivro</class>
+    <class>br.com.fatene.biblioteca.model.ReservaCd</class>
+    <class>br.com.fatene.biblioteca.model.ReservaMonografia</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <properties>
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
+      <property name="javax.persistence.jdbc.url" 
+                value="jdbc:postgresql://localhost:5432/biblioteca"/>
+      <property name="javax.persistence.jdbc.password" value="614398"/>
+      <property name="javax.persistence.jdbc.driver" 
+                value="org.postgresql.Driver"/>
+      <property name="javax.persistence.jdbc.user" value="postgres"/>
+      <property name="hibernate.show_sql" value="true"/>
+    </properties>
+  </persistence-unit>
+</persistence>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pm="http://primefaces.org/mobile"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <p:outputLabel value="Recibo de Renovação" />
+        <br/>
+        <br/>
+    </h:head>    
+
+    <h:body>
+        <h:form>
+            <p:outputLabel value="Realizada em: " /><p:outputLabel 
+                value="#{cadastroRenovacaoBean.datah.time}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </p:outputLabel>
+            <br/>
+            <br/>
+            <ui:repeat var="emplivro" 
+                       value="#{cadastroRenovacaoBean.emprLivros}" >
+                        <li><p:outputLabel value="Título: "/>
+                            #{emplivro.exemplarLivro.livro.titulo}
+                            <p:outputLabel value=" | Prev. Devolução: "/>
+                            <p:outputLabel 
+                                value="#{emplivro.previsaoDataDevolucao.time}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </p:outputLabel>
+                            <p:outputLabel value=" | Cód. Empréstimo: "/>
+                            <p:outputLabel 
+                                value="#{emplivro.id}" /></li>
+            </ui:repeat>
+            <ui:repeat var="empcd" 
+                       value="#{cadastroRenovacaoBean.emprCds}" >
+                        <li><p:outputLabel value="Título: "/>
+                            #{empcd.exemplarCd.cd.titulo}
+                            <p:outputLabel value=" | Prev. Devolução: "/>
+                            <p:outputLabel 
+                                value="#{empcd.previsaoDataDevolucao.time}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </p:outputLabel>
+                            <p:outputLabel value=" | Cód. Empréstimo: "/>
+                            <p:outputLabel 
+                                value="#{empcd.id}" /></li>
+            </ui:repeat>
+            <ui:repeat var="empmonog" 
+                       value="#{cadastroRenovacaoBean.emprMonografia}" >
+                        <li><p:outputLabel value="Título: "/>
+                            #{empmonog.exemplarMonografia.monografia.titulo}
+                            <p:outputLabel value=" | Prev. Devolução: "/>
+                            <p:outputLabel 
+                                value="#{empmonog.previsaoDataDevolucao.time}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </p:outputLabel>
+                            <p:outputLabel value=" | Cód. Empréstimo: "/>
+                            <p:outputLabel 
+                                value="#{empmonog.id}" /></li>
+            </ui:repeat>
+            <br/>
+            <br/>
+                <p:outputLabel value="-----------------------------------"/>
+                <br/>
+                <p:outputLabel value="#{cadastroRenovacaoBean.nomeSolicitante}"/>
+                <br/>
+                <br/>
+                <p:outputLabel value="Cod. Usuário: "/>
+                <p:outputLabel value="#{cadastroRenovacaoBean.usuario.id}"/>
+                <br/>
+                <p:outputLabel value="Matrícula: "/>
+                <p:outputLabel value="#{cadastroRenovacaoBean.matricula}"/>
+                <br/>
+                <p:outputLabel value="Máquina: "/>
+                <p:outputLabel value="#{cadastroRenovacaoBean.ip}"/>
+                <br/>
+                <br/>
+                <h:panelGrid columns="2" role="4" >
+                <p:outputLabel value="Imprimir Comprovante: "/>
+                <button type="button" onclick="window.print();"> imprimir</button>
+                <p:outputLabel value="Página Anterior: "/>
+                <h:commandButton value="voltar" style="font-size: small"
+                                 action="#{cadastroRenovacaoBean.limpar}" />
+                </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>

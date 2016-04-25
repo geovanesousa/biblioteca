@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pm="http://primefaces.org/mobile"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <div>
+            <ui:include src="/templates/menuatecoo.xhtml"/>
+        </div>
+        <br/>
+        <p:outputLabel value="Inserir CD" style="font-size: large" />
+    </h:head>    
+
+    <h:body>
+        <h:form >
+            <p:tabView>
+                <p:tab title="CD">
+                    <p:outputLabel 
+                        value="Preencha o formulário abaixo, com
+                        as informações do CD" />
+                    <br/>
+                    <h:panelGrid columns="4" role="5" > 
+                        <p:outputLabel for="cod" value="Cód. Gerado" />
+                        <p:inputText id="cod" readonly="true"
+                                     value="#{cadastroCdBean.cd.id}" />
+
+
+                    <p:outputLabel for="duracao" value="Duração em minutos.:" />
+                        <p:inputText id="duracao" required="true"
+                                  value="#{cadastroCdBean.cd.duracaoMinutos}" />
+
+                        <p:outputLabel for="editora" value="Nome Editora:" />
+                  <p:autoComplete id="editora" minQueryLength="3" maxResults="5" 
+                                       value="#{cadastroCdBean.cd.editora.nome}" 
+                           completeMethod="#{cadastroEditoraBean.listaEditoras}" 
+                                        effect="blind" required="true" />
+
+                        <p:outputLabel for="titulo" value="Título:" />
+                        <p:inputText id="titulo"
+                                     value="#{cadastroCdBean.cd.titulo}" 
+                                     required="true" />
+
+                        <p:outputLabel for="descricao" value="Descrição:" />
+                        <p:inputText id="descricao" 
+                                     value="#{cadastroCdBean.cd.descricao}"
+                                     required="true" maxlength="100" />
+
+
+                        <p:outputLabel for="codbarra" value="Cód. de Barra:" />
+                        <p:inputMask id="codbarra" mask="9999999999999" 
+                                     required="true"
+                                    value="#{cadastroCdBean.cd.codigoBarras}" />
+
+                    <p:outputLabel for="classificacao" value="Classificação:" />
+                        <p:inputText id="classificacao" required="true"
+                                   value="#{cadastroCdBean.cd.classificacao}" />
+
+                    </h:panelGrid>
+                </p:tab>
+
+                
+                <p:tab title="Estoque">
+                    <h:panelGrid columns="2" role="7" >
+                        <p:outputLabel for="qtdcds" value="Qtd. CDs:" />
+                        <p:inputText id="qtdcds" required="true"
+                       value="#{cadastroCdBean.exemplarCd.quantidadeEstoque}" />
+                        <p:outputLabel for="bloqueado" value="Bloqueado:" />
+                        <p:selectOneMenu id="bloqueado" 
+                                         value="#{cadastroCdBean.cd.bloqueado}" 
+                                         style="width:125px">
+                            <f:selectItem itemLabel="Não" itemValue="false" />
+                            <f:selectItem itemLabel="Sim" itemValue="true" />
+                        </p:selectOneMenu>
+                        
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="Autor">
+                    <h:panelGrid columns="2" role="7" >
+                        <p:outputLabel for="nome" value="Nome:" />
+                        <p:inputText id="nome" 
+                                     value="#{cadastroCdBean.autor.nome}" />
+                        <p:outputLabel for="cutter" value="Cutter:" />
+                        <p:inputText id="cutter" 
+                                     value="#{cadastroCdBean.autor.cutter}" />
+                        <p:outputLabel value="Adicionar autor:" />
+                        <p:commandButton value="+"
+                                         style="font-size: small"
+                                         ajax="false" 
+                                         action="#{cadastroCdBean.
+                                                   adicionaAutorNaLista}"/>
+                        <p:outputLabel value="Concluir cadastro:" />
+                        <p:commandButton value="Enviar" 
+                                         style="font-size: small"
+                                         icon="ui-icon-arrow-u" ajax="false" 
+                                         action="#{cadastroCdBean.inserirCd}"/>
+                    </h:panelGrid>
+                    <ol>
+                        <ui:repeat var="autor" value="#{cadastroCdBean.autores}">
+                            <li><p:outputLabel value="Autor: "/>#{autor.nome}
+                                <p:outputLabel value="| Cutter: "/>#{autor.cutter}</li>
+                        </ui:repeat>
+                    </ol>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+    </h:body>
+</html>

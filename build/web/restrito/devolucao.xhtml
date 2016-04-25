@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pm="http://primefaces.org/mobile"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <div>
+            <ui:include src="/templates/menuatecoo.xhtml"/>
+        </div>
+        <br/>
+        <p:outputLabel value="Cadastrar Devolução" style="font-size: large" />
+        <br/>
+    </h:head>    
+
+    <h:body>
+        <br/>
+        <p:tabView >
+            <p:tab title="Solicitante" >
+                <h:form>
+                    <h:panelGrid columns="2" role="4" >
+                        <p:outputLabel for="nomesolic" 
+                                       value="Nome do Solicitante:" />
+                        <p:autoComplete id="nomesolic" 
+                                        minQueryLength="3" maxResults="5" 
+                                        value="#{cadastroDevolucaoBean.
+                                                 nomeSolicitante}" 
+                                        completeMethod="#{cadastroEmprestimoBean.
+                                                          listaSolicitantes}" 
+                                                          effect="blind" >
+                            <f:ajax event="blur" render="nomesolic matricula" 
+                                    listener="#{cadastroDevolucaoBean.
+                                                   defineSolicitantePorNome}" />
+                        </p:autoComplete>
+                        <p:outputLabel value="OU" />
+                        <p:outputLabel value="" />
+                        <p:outputLabel for="matricula" value="Matricula:" />
+                        <p:inputText id="matricula" 
+                                     value="#{cadastroDevolucaoBean.matricula}" >
+                            <f:ajax event="blur" render="nomesolic matricula"
+                                listener="#{cadastroDevolucaoBean.
+                                                     defineSolicitantePorMatricula}" />
+                        </p:inputText>
+                    </h:panelGrid>
+                </h:form>
+            </p:tab>
+            <p:tab title="Livro">
+                <h:form >
+                    <h:panelGrid columns="2" role="5" >
+                        <p:outputLabel for="titulolivro" 
+                                       value="Título do Livro:" />
+                        <p:autoComplete id="titulolivro" minQueryLength="3" 
+                                        maxResults="5" 
+                                        value="#{cadastroDevolucaoBean.
+                                                 tituloLivro}" 
+                                        completeMethod="#{cadastroEmprestimoBean.
+                                                          listaLivros}" 
+                                                          effect="blind" >
+                        <f:ajax event="blur" render="titulolivro codlivro" 
+                                listener="#{cadastroDevolucaoBean.
+                                            codigoLivroPorNome}" />
+                        </p:autoComplete>
+                        <p:outputLabel value="OU" />
+                        <p:outputLabel value="" />
+                        <p:outputLabel for="codlivro" value="Código:" />
+                        <p:inputText id="codlivro" 
+                                     value="#{cadastroDevolucaoBean.
+                                              codigoLivro}" >
+                        <f:ajax event="blur" render="titulolivro codlivro" 
+                                listener="#{cadastroDevolucaoBean.
+                                                   nomeLivroPorCodigo}" />
+                        </p:inputText>
+                        <p:outputLabel   value="Adicionar Devolução:" />
+                        <p:commandButton value="+"
+                                         style="font-size: small" ajax="false"
+                                         action="#{cadastroDevolucaoBean.
+                                                   adicionaLivroNaLista}" />
+                    </h:panelGrid>
+                </h:form>
+                <ol >
+                    <ui:repeat var="emplivro" 
+                               value="#{cadastroDevolucaoBean.emprLivros}" >
+                        <li><p:outputLabel value="Cód: "/>
+                            #{emplivro.exemplarLivro.livro.id}
+                            <p:outputLabel value="| Título: "/>
+                            #{emplivro.exemplarLivro.livro.titulo}
+                            <p:outputLabel value="| Prev. Devolução: "/>
+                            <p:outputLabel 
+                                value="#{emplivro.previsaoDataDevolucao.time}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </p:outputLabel>
+                            <p:outputLabel value="| Multa R$: "/>
+                            #{emplivro.multa} </li>
+                    </ui:repeat>
+                </ol> 
+            </p:tab>
+            <p:tab title="CD">
+                <h:form >
+                    <h:panelGrid columns="2" role="5" >
+                        <p:outputLabel for="titulocd" value="Título do CD:" />
+                 <p:autoComplete id="titulocd" minQueryLength="3" maxResults="5" 
+                                      value="#{cadastroDevolucaoBean.tituloCd}" 
+                             completeMethod="#{cadastroEmprestimoBean.listaCds}" 
+                             effect="blind" >
+                 <f:ajax event="blur" render="titulocd codcd" 
+                                listener="#{cadastroDevolucaoBean.
+                                            codigoCdPorNome}" />
+                 </p:autoComplete>
+                        <p:outputLabel value="OU" />
+                        <p:outputLabel value="" />
+                        <p:outputLabel for="codcd" value="Código:" />
+                        <p:inputText id="codcd" 
+                                     value="#{cadastroDevolucaoBean.
+                                              codigoCd}" >
+                        <f:ajax event="blur" render="titulocd codcd" 
+                                listener="#{cadastroDevolucaoBean.
+                                            nomeCdPorCodigo}" />
+                        </p:inputText>
+                        <p:outputLabel   value="Adicionar Devolução:" />
+                        <p:commandButton value="+"
+                                         style="font-size: small"
+                                         ajax="false" 
+                         action="#{cadastroDevolucaoBean.adicionaCdNaLista}" />
+                    </h:panelGrid>
+                </h:form>
+                <ol>
+                    <ui:repeat var="emprcd" value="#{cadastroDevolucaoBean.emprCds}">
+                        <li><p:outputLabel value="Cód: "/>
+                            #{emprcd.exemplarCd.cd.id}
+                            <p:outputLabel value="| Título: "/>
+                            #{emprcd.exemplarCd.cd.titulo}
+                            <p:outputLabel value="| Prev. Devolução: "/>
+                            <p:outputLabel 
+                                value="#{emprcd.previsaoDataDevolucao.time}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </p:outputLabel>
+                            <p:outputLabel value="| Multa R$: "/>
+                            #{emprcd.multa} </li>
+                    </ui:repeat>
+                </ol>
+            </p:tab>
+            <p:tab title="Monografia">
+                <h:form >
+                    <h:panelGrid columns="2" role="4" >
+                        <p:outputLabel for="titulomonog" value="Título:" />
+              <p:autoComplete id="titulomonog" minQueryLength="3" maxResults="5" 
+                              value="#{cadastroDevolucaoBean.tituloMonog}" 
+                          completeMethod="#{cadastroEmprestimoBean.listaMonog}" 
+                          effect="blind" >
+              <f:ajax event="blur" render="titulomonog codmonog" 
+                      listener="#{cadastroDevolucaoBean.codigoMonogPorNome}" />
+              </p:autoComplete>
+                        <p:outputLabel value="OU" />
+                        <p:outputLabel value="" />
+                        <p:outputLabel for="codmonog" value="Código:" />
+                        <p:inputText id="codmonog" 
+                                     value="#{cadastroDevolucaoBean.
+                                              codigoMonog}" >
+                        <f:ajax event="blur" render="titulomonog codmonog" 
+                                listener="#{cadastroDevolucaoBean.
+                                            nomeMonogPorCodigo}" />
+                        </p:inputText>
+                        <p:outputLabel   value="Adicionar Devolução:" />
+                        <p:commandButton value="+"
+                                         style="font-size: small"
+                                         ajax="false" 
+                       action="#{cadastroDevolucaoBean.adicionaMonogNaLista}" />
+                    </h:panelGrid>
+                </h:form>
+                <ol>
+                    <ui:repeat var="emprmonog" 
+                               value="#{cadastroDevolucaoBean.emprMonografias}">
+                        <li><p:outputLabel value="Cód: "/>
+                            #{emprmonog.exemplarMonografia.monografia.id}
+                            <p:outputLabel value="| Título: "/>
+                            #{emprmonog.exemplarMonografia.monografia.titulo}
+                            <p:outputLabel value="| Prev. Devolução: "/>
+                            <p:outputLabel 
+                                value="#{emprmonog.previsaoDataDevolucao.time}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </p:outputLabel>
+                            <p:outputLabel value="| Multa R$: "/>
+                            #{emprmonog.multa} </li>
+                    </ui:repeat>
+                </ol>
+            </p:tab>
+        </p:tabView>
+        <br/>
+        <h:form>
+        <h:panelGrid columns="2" role="4" >
+            <p:outputLabel value="Concluir Devolução: " />
+            <p:commandButton value="Enviar" 
+                         style="font-size: small"
+                         icon="ui-icon-arrow-u" ajax="false" 
+                         action="#{cadastroDevolucaoBean.inserirDevolucao}"/>
+            <p:outputLabel value="Limpar Campos: " />
+            <p:commandButton value="-" 
+                             style="font-size: small" ajax="false"
+                             action="#{cadastroDevolucaoBean.limpar}"/>
+        </h:panelGrid>
+            <p:messages id="messages"  autoUpdate="true" >
+            </p:messages>                    
+        </h:form>
+    </h:body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pm="http://primefaces.org/mobile"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <div>
+            <ui:include src="/templates/menuadm.xhtml"/>
+        </div>
+        <br/>
+        <p:outputLabel value="Inserir Usuário" style="font-size: large" />
+    </h:head>    
+
+    <h:body>
+        <h:form >
+            <p:tabView>
+                <p:tab title="Usuário">
+                    <p:outputLabel 
+                        value="Preencha o formulário abaixo, com
+                        as informações do Usuário" />
+                    <br/>
+                    <h:panelGrid columns="2" role="5" > 
+
+                        <p:outputLabel for="cpf" value="CPF:" />
+                        <p:inputMask id="cpf" mask="999.999.999-99" 
+                                     required="true"
+                                     value="#{cadastroUsuarioBean.usuario.pessoa.cpf}" />
+
+                        <p:outputLabel for="nome" value="Nome:" />
+                        <p:inputText id="nome"
+                                     value="#{cadastroUsuarioBean.usuario.pessoa.nome}" 
+                                     required="true" />
+
+                        <p:outputLabel for="categoria" value="Categoria:" />
+                        <p:selectOneMenu id="categoria" 
+                                         value="#{cadastroUsuarioBean.usuario.categoria}" >
+                            <f:selectItem itemLabel="Administrador" 
+                                          itemValue="administrador" />
+                            <f:selectItem itemLabel="Coordenador" 
+                                          itemValue="coordenador" />
+                            <f:selectItem itemLabel="Atendente" 
+                                          itemValue="atendente" />
+                            <f:selectItem itemLabel="Secretário" 
+                                          itemValue="secretario" />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel for="login" value="Login:" />
+                        <p:inputText id="login" readonly="true"
+                                     value="#{cadastroUsuarioBean.usuario.pessoa.matricula}" />
+
+                        <h:outputLabel for="senha" value="Senha: *" />
+                        <p:password id="senha" 
+                                    value="#{cadastroUsuarioBean.usuario.senha}" 
+                                    match="senha2" label="Senha" 
+                                    required="true" />
+
+                        <h:outputLabel for="senha2" value="Repita a senha: *" />
+                        <p:password id="senha2" 
+                                    value="#{cadastroUsuarioBean.usuario.senha}" 
+                                    label="Senha 2" required="true" />
+                        <h:outputLabel for="senha" value="Inserir usuário: " />
+                        <p:commandButton value="+" 
+                                         style="font-size: small"
+                                         ajax="false" 
+                                         action="#{cadastroUsuarioBean.inserirUsuario}"/>
+                        </h:panelGrid>
+                </p:tab>
+            </p:tabView>
+            <p:messages id="messages"  
+                                    autoUpdate="true" >
+                        </p:messages>                    
+        </h:form>
+    </h:body>
+</html>

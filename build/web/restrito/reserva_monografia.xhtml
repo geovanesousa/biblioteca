@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pm="http://primefaces.org/mobile"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <div>
+            <ui:include src="/templates/menuatecoo.xhtml"/>
+        </div>
+        <br/>
+        <p:outputLabel value="Reservar Monografia" style="font-size: large" />
+    </h:head>    
+
+    <h:body>
+        <br/>
+        <h:form>
+            <br/>
+            <p:outputLabel for="codreserva" value="Cód. Reserva: " />
+            <p:inputText id="codreserva" readonly="true" 
+                         value="#{reservaMonogBean.reservaMonog.id}" />
+        </h:form>
+        <br/>
+        <p:tabView >
+            <p:tab title="Solicitante" >
+                <h:form>
+                    <h:panelGrid columns="2" role="4" >
+                        <p:outputLabel for="nomesolic" 
+                                       value="Nome do Solicitante:" />
+                        <p:autoComplete id="nomesolic" 
+                                        minQueryLength="3" maxResults="5" 
+                                        value="#{reservaMonogBean.nomeSolic}" 
+                                        completeMethod="#{cadastroEmprestimoBean.
+                                                          listaSolicitantes}" 
+                                        effect="blind" >
+                            <f:ajax event="blur" render="nomesolic matricula" 
+                      listener="#{reservaMonogBean.
+                                  defineSolicitantePorNome}" />
+                        </p:autoComplete>
+                        <p:outputLabel value="OU" />
+                        <p:outputLabel value="" />
+                        <p:outputLabel for="matricula" value="Matricula:" />
+                        <p:inputText id="matricula" 
+                                     value="#{reservaMonogBean.matricula}" >
+                            <f:ajax event="blur" render="nomesolic matricula" 
+                      listener="#{reservaMonogBean.
+                                                   defineSolicitantePorMatricula}" />
+                        </p:inputText>
+                    </h:panelGrid>
+                </h:form>
+            </p:tab>
+            <p:tab title="Monografia">
+                <h:form >
+                    <h:panelGrid columns="2" role="5" >
+                        <p:outputLabel for="titulomonog" 
+                                       value="Título Monografia:" />
+                        <p:autoComplete id="titulomonog" minQueryLength="3" 
+                                        maxResults="5" 
+                                        value="#{reservaMonogBean.
+                                                 tituloMonog}" 
+                                        completeMethod="#{cadastroEmprestimoBean.
+                                                          listaMonog}" 
+                                        effect="blind" >
+                            <f:ajax event="blur" render="titulomonog codmonog" 
+                      listener="#{reservaMonogBean.
+                                                   codigoMonogPorNome}" />
+                        </p:autoComplete>
+                        <p:outputLabel value="OU" />
+                        <p:outputLabel value="" />
+                        <p:outputLabel for="codmonog" value="Código:" />
+                        <p:inputText id="codmonog" 
+                                     value="#{reservaMonogBean.
+                                              codMonog}" >
+                            <f:ajax event="blur" render="titulomonog codmonog" 
+                      listener="#{reservaMonogBean.
+                                  nomeMonogPorCodigo}" />
+                        </p:inputText>
+                        </h:panelGrid>
+                </h:form>
+            </p:tab>
+        </p:tabView>
+        <br/>
+        <h:panelGrid columns="2" role="2" >
+        <h:form>
+            <p:outputLabel value="Concluir Reserva: " />
+            <p:commandButton value="Enviar" 
+                         style="font-size: small"
+                         icon="ui-icon-arrow-u" ajax="false" 
+                         action="#{reservaMonogBean.inserirReserva}"/>
+        </h:form>
+        </h:panelGrid>
+    </h:body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pm="http://primefaces.org/mobile"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <div>
+            <ui:include src="/templates/menuatecoo.xhtml"/>
+        </div>
+        <br/>
+        <p:outputLabel value="Reservar Livro" style="font-size: large" />
+    </h:head>    
+
+    <h:body>
+        <br/>
+        <h:form>
+            <br/>
+            <p:outputLabel for="codreserva" value="Cód. Reserva: " />
+            <p:inputText id="codreserva" readonly="true" 
+                         value="#{reservaLivroBean.reservaLivro.id}" />
+        </h:form>
+        <br/>
+        <p:tabView >
+            <p:tab title="Solicitante" >
+                <h:form>
+                    <h:panelGrid columns="2" role="4" >
+                        <p:outputLabel for="nomesolic" 
+                                       value="Nome do Solicitante:" />
+                        <p:autoComplete id="nomesolic" 
+                                        minQueryLength="3" maxResults="5" 
+                                        value="#{reservaLivroBean.nomeSolic}" 
+                                        completeMethod="#{cadastroEmprestimoBean.
+                                                          listaSolicitantes}" 
+                                        effect="blind" >
+                            <f:ajax event="blur" render="nomesolic matricula" 
+                      listener="#{reservaLivroBean.
+                                  defineSolicitantePorNome}" />
+                        </p:autoComplete>
+                        <p:outputLabel value="OU" />
+                        <p:outputLabel value="" />
+                        <p:outputLabel for="matricula" value="Matricula:" />
+                        <p:inputText id="matricula" 
+                                     value="#{reservaLivroBean.matricula}" >
+                            <f:ajax event="blur" render="nomesolic matricula" 
+                      listener="#{reservaLivroBean.
+                                                   defineSolicitantePorMatricula}" />
+                        </p:inputText>
+                    </h:panelGrid>
+                </h:form>
+            </p:tab>
+            <p:tab title="Livro">
+                <h:form >
+                    <h:panelGrid columns="2" role="5" >
+                        <p:outputLabel for="titulolivro" 
+                                       value="Título do Livro:" />
+                        <p:autoComplete id="titulolivro" minQueryLength="3" 
+                                        maxResults="5" 
+                                        value="#{reservaLivroBean.
+                                                 tituloLivro}" 
+                                        completeMethod="#{cadastroEmprestimoBean.
+                                                          listaLivros}" 
+                                        effect="blind" >
+                            <f:ajax event="blur" render="titulolivro codlivro" 
+                      listener="#{reservaLivroBean.
+                                                   codigoLivroPorNome}" />
+                        </p:autoComplete>
+                        <p:outputLabel value="OU" />
+                        <p:outputLabel value="" />
+                        <p:outputLabel for="codlivro" value="Código:" />
+                        <p:inputText id="codlivro" 
+                                     value="#{reservaLivroBean.
+                                              codLivro}" >
+                            <f:ajax event="blur" render="titulolivro codlivro" 
+                      listener="#{reservaLivroBean.
+                                  nomeLivroPorCodigo}" />
+                        </p:inputText>
+                        </h:panelGrid>
+                </h:form>
+            </p:tab>
+        </p:tabView>
+        <br/>
+        <h:panelGrid columns="2" role="2" >
+        <h:form>
+            <p:outputLabel value="Concluir Reserva: " />
+            <p:commandButton value="Enviar" 
+                         style="font-size: small"
+                         icon="ui-icon-arrow-u" ajax="false" 
+                         action="#{reservaLivroBean.inserirReserva}"/>
+        </h:form>
+        </h:panelGrid>
+    </h:body>
+</html>

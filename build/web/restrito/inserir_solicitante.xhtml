@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pm="http://primefaces.org/mobile"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <div>
+            <ui:include src="/templates/menusec.xhtml"/>
+        </div>
+        <br/>
+        <p:outputLabel value="Inserir Solicitante" style="font-size: large" />
+    </h:head>    
+
+    <h:body>
+        <h:form >
+            <p:tabView>
+                <p:tab title="Solicitante">
+                    <p:outputLabel 
+                        value="Preencha o formulário abaixo, com
+                        as informações do Solicitante" />
+                    <br/>
+                    <h:panelGrid columns="2" role="5" > 
+                        <p:outputLabel for="matricula" value="Matrícula" />
+                        <p:inputText id="matricula" readonly="true"
+              value="#{cadastroSolicitanteBean.solicitante.pessoa.matricula}" />
+
+
+                        <p:outputLabel for="cpf" value="CPF:" />
+                        <p:inputMask id="cpf" mask="999.999.999-99" 
+                                     required="true"
+                     value="#{cadastroSolicitanteBean.solicitante.pessoa.cpf}" />
+
+                        <p:outputLabel for="nome" value="Nome:" />
+                        <p:inputText id="nome"
+                      value="#{cadastroSolicitanteBean.solicitante.pessoa.nome}" 
+                                     required="true" />
+                        <p:outputLabel for="categoria" value="Categoria:" />
+                        <p:selectOneMenu id="categoria" 
+                        value="#{cadastroSolicitanteBean.solicitante.categoria}" 
+                        style="width:125px">
+                            <f:selectItem itemLabel="Aluno" itemValue="aluno" />
+                            <f:selectItem itemLabel="Professor" itemValue="professor" />
+                            <f:selectItem itemLabel="funcionario" itemValue="funcionario" />
+                        </p:selectOneMenu>
+                        <p:outputLabel for="situacao" value="Situação:" />
+                        <p:selectOneMenu id="situacao" 
+                         value="#{cadastroSolicitanteBean.solicitante.situacao}" 
+                        style="width:125px">
+                            <f:selectItem itemLabel="Habilitado" itemValue="habilitado" />
+                            <f:selectItem itemLabel="Desativado" itemValue="desativado" />
+                        </p:selectOneMenu>
+                        <p:commandButton value="Concluir" 
+                                         style="font-size: small"
+                                         icon="ui-icon-arrow-u" ajax="false" 
+                        action="#{cadastroSolicitanteBean.inserirSolicitante}"/>
+                    </h:panelGrid>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+    </h:body>
+</html>
